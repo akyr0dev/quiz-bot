@@ -31,15 +31,18 @@ const commands = [
         .setName('start')
         .setDescription('Start a country quiz')
 ];
-
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {
     try {
+        console.log('Chargement des commandes slashs...');
+
         await rest.put(
             Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
+            { body: [{ name: 'setup', description: 'Setup the bot' }] },
         );
+
+        console.log('Les commandes slashs on bien été charger !');
     } catch (error) {
         console.error(error);
     }
